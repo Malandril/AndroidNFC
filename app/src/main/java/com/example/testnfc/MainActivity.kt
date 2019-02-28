@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             for (record in ndefMessage.records) {
                 val uri = record.toUri()
                 if (uri != null) {
-                    builder.append("ndef record: $uri\n")
+                    builder.append("ndef record url: $uri\n")
                 } else {
                     builder.append("ndef record: ${String(record.payload)}\n")
                 }
