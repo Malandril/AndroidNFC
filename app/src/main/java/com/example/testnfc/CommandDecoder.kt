@@ -90,8 +90,8 @@ class CommandDecoder(var ndefFile: NDEFFile) {
         return NFCStatus.OK.data
     }
 
-    private fun getPaddedNDEF(): IntArray {
-        Log.d(javaClass.name, "getPaddedNDEF")
+    private fun getNDEFFileFilled(): IntArray {
+        Log.d(javaClass.name, "getNDEFFileFilled")
         val minLength = ccFile.VMaxNdefSize.convertToInt16()
         val ndefFileBytes = ndefFile.convertToArray()
         val ndefFileSize = ndefFileBytes.size
@@ -103,7 +103,7 @@ class CommandDecoder(var ndefFile: NDEFFile) {
 
     fun readNDEFFile(offset: Int, length: Int): IntArray {
         Log.d(javaClass.name, "readNDEFFile")
-        val ndefFileBytes = getPaddedNDEF()
+        val ndefFileBytes = getNDEFFileFilled()
         Log.d(javaClass.name, (offset + length).toString())
         if (offset + length > ndefFileBytes.size) {
             return NFCStatus.END_OF_FILE.data
@@ -118,7 +118,7 @@ class CommandDecoder(var ndefFile: NDEFFile) {
         Log.d(javaClass.name, "updateNDEFFile")
         if (selected != SelectedType.SELECT_NDEFFILE)
             return NFCStatus.INVALID_P1P2_READWRITE.data
-        val ndefFileBytes = getPaddedNDEF()
+        val ndefFileBytes = getNDEFFileFilled()
         if (length > ccFile.maxLc.convertToInt16()) {
             return NFCStatus.WRONG_LENGTH.data
         }

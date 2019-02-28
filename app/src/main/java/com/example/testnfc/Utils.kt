@@ -1,5 +1,10 @@
 package com.example.testnfc
 
+import android.content.Context
+import android.nfc.NdefMessage
+import android.util.Log
+import android.widget.TextView
+import java.util.*
 import kotlin.experimental.and
 import kotlin.experimental.or
 
