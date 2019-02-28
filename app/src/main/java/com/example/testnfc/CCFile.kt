@@ -1,18 +1,18 @@
 package com.example.testnfc
 
-class CCFile : IByteConvertible {
-    var ccLen: ByteArray = Utils.intsToBytes(0x00, 0x0F);
-    var mapping = Utils.intsToBytes(0x20)
-    var maxLe = Utils.intsToBytes(0x00, 0x3B)
-    var maxLc = Utils.intsToBytes(0x00, 0x34)
-    var T = Utils.intsToBytes(0x04)
-    var L = Utils.intsToBytes(0x06)
-    var VFileIdentifier = Utils.intsToBytes(0xE1, 0x04)
-    var VMaxNdefSize = Utils.intsToBytes(0x00, 0x32)
-    var VSecurity = Utils.intsToBytes(0x00, 0x00)
+class CCFile {
+    var ccLen = intArrayOf(0x00, 0x0F)
+    var mapping = intArrayOf(0x20)
+    var maxLe = intArrayOf(0x00, 0x3B)
+    var maxLc = intArrayOf(0x00, 0x34)
+    var T = intArrayOf(0x04)
+    var L = intArrayOf(0x06)
+    var VFileIdentifier = intArrayOf(0xE1, 0x04)
+    var VMaxNdefSize = intArrayOf(0x01, 0x32)
+    var VSecurity = intArrayOf(0x00, 0x00)
 
 
-    override fun convertToBytes(): ByteArray {
+    fun convertToArray(): IntArray {
         return ccLen + mapping + maxLe + maxLc + T + L + VFileIdentifier + VMaxNdefSize + VSecurity
     }
 
