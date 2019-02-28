@@ -22,7 +22,7 @@ fun IntArray.toByteArray(): ByteArray {
 fun ByteArray.toIntArray(): IntArray {
     return this.foldIndexed(IntArray(this.size)) { i, a, v ->
         a.apply {
-            set(i, v.toInt())
+            set(i, byteToInt(v))
         }
     }
 }
@@ -32,13 +32,4 @@ fun byteToInt(b: Byte): Int {
         return b + 256
     else
         return b.toInt()
-}
-
-class Utils {
-    companion object {
-
-
-    }
-
-
 }

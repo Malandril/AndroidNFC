@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.testnfc.ndef.NDEFFile
 import java.lang.Exception
+import java.lang.StringBuilder
 
 class MyHostApduService : HostApduService() {
     private val ndefFile by lazy { NDEFFile(this) }
@@ -18,7 +19,13 @@ class MyHostApduService : HostApduService() {
     override fun processCommandApdu(commandApdu: ByteArray?, extras: Bundle?): ByteArray {
         try {
             return commandApdu?.let {
-                return nfcCommandDecoder.decodeCommand(commandApdu.toIntArray()).toByteArray()
+                val result = nfcCommandDecoder.decodeCommand(commandApdu.toIntArray())
+                val builder = StringBuilder()
+                for (v in result) {
+                    builder.append(String.format("%02X", v))
+                }
+                Log.d(javaClass.name, "response: $builder")
+                return result.toByteArray()
             } ?: NFCStatus.INVALID_INSTRUCTION.data.toByteArray()
         } catch (e: Exception) {
             e.printStackTrace()

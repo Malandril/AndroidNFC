@@ -16,6 +16,7 @@ class NDEFFile(val context: Context) {
         context.openFileOutput("storage", Context.MODE_PRIVATE).use {
             it.write(ndefFile.toByteArray())
         }
+
     }
 
 }

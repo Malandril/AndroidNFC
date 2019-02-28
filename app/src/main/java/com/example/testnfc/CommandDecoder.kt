@@ -39,9 +39,6 @@ class CommandDecoder(var ndefFile: NDEFFile) {
 
     }
 
-    fun readNdef(offset: Int, le: Int) {
-
-    }
 
     fun decodeRead(offset: Int, le: Int): IntArray {
         Log.d(javaClass.name, "read binary")
@@ -64,7 +61,7 @@ class CommandDecoder(var ndefFile: NDEFFile) {
         return if (lc > 16 || lc < 5) {
             NFCStatus.WRONG_LC.data
         } else {
-            if (data.contentEquals(applicationName)) {
+            if (data.sliceArray(0 until data.size - 1).contentEquals(applicationName)) {
                 selected = SelectedType.SELECT_APPLICATION
                 NFCStatus.OK.data
             } else {
@@ -104,22 +101,22 @@ class CommandDecoder(var ndefFile: NDEFFile) {
         val ndefFileBytes = ndefFile.convertToArray()
         val ndefFileSize = ndefFileBytes.size
         return when {
-            ndefFileSize < minLength -> ndefFileBytes + intArrayOf((minLength - ndefFileSize))
+            ndefFileSize < minLength -> ndefFileBytes + IntArray((minLength - ndefFileSize))
             else -> ndefFileBytes
         }
     }
 
     fun readNDEFFile(offset: Int, length: Int): IntArray {
         Log.d(javaClass.name, "readNDEFFile")
-        val range = offset until offset + length
         val ndefFileBytes = getPaddedNDEF()
+        Log.d(javaClass.name, (offset + length).toString())
         if (offset + length > ndefFileBytes.size) {
             return NFCStatus.END_OF_FILE.data
         }
         if (length > ccFile.maxLe.convertToInt16()) {
             return NFCStatus.WRONG_LE.data
         }
-        return ndefFileBytes.sliceArray(range) + NFCStatus.OK.data
+        return ndefFileBytes.sliceArray(offset until offset + length) + NFCStatus.OK.data
     }
 
     fun updateBinary(offset: Int, length: Int, data: IntArray): IntArray {

@@ -20,8 +20,10 @@ class MainActivity : AppCompatActivity() {
         val context = super.getApplicationContext()
         val file = File(context.filesDir, "storage")
         val textView = findViewById<TextView>(R.id.lol)
-        context.openFileOutput("storage", Context.MODE_PRIVATE).use {
-            it.write(intArrayOf(0xD0, 0x00, 0x00).toByteArray())
+        if (!file.exists()) {
+            context.openFileOutput("storage", Context.MODE_PRIVATE).use {
+                it.write(intArrayOf(0xD0, 0x00, 0x00).toByteArray())
+            }
         }
         context.openFileInput("storage").use {
             val readBytes = it.readBytes()
@@ -30,13 +32,6 @@ class MainActivity : AppCompatActivity() {
         }
         val test_button = findViewById<Button>(R.id.test_write)
         val commandDecoder = CommandDecoder(NDEFFile(this))
-        test_button.setOnClickListener { b ->
-            commandDecoder.decodeCommand(intArrayOf(0x00, 0xA4, 0x04, 0x00, 0x07, 0xD2, 0x76, 0x00, 0x00, 0x85, 0x01, 0x01))
-            commandDecoder.decodeCommand(intArrayOf(0x00, 0xA4, 0x00, 0x0C, 0x02, 0xE1, 0x03))
-            commandDecoder.decodeCommand(intArrayOf(0x00, 0xA4, 0x00, 0x0C, 0x02, 0xE1, 0x04))
-            commandDecoder.decodeCommand(intArrayOf(0x00, 0xA4, 0x00, 0x0C, 0x02, 0xE1, 0x04))
-
-        }
     }
 
 }
