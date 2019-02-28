@@ -27,6 +27,23 @@ fun ByteArray.toIntArray(): IntArray {
     }
 }
 
+fun ByteArray.toHexString(): String {
+    val hexBuilder = StringBuilder()
+    for (byte in this) {
+        hexBuilder.append(String.format("%02X", byte))
+    }
+    return hexBuilder.toString()
+}
+
+fun IntArray.toHexString(): String {
+    val hexBuilder = StringBuilder()
+    for (d in this) {
+        hexBuilder.append(String.format("%02X", d))
+    }
+    return hexBuilder.toString()
+}
+
+
 fun byteToInt(b: Byte): Int {
     if (b < 0)
         return b + 256

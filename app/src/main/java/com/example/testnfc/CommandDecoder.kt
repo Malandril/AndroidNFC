@@ -5,7 +5,6 @@ import com.example.testnfc.ndef.NDEFFile
 
 class CommandDecoder(var ndefFile: NDEFFile) {
 
-
     val ccFile by lazy { CCFile() }
     private val applicationName = intArrayOf(0xD2, 0x76, 0x00, 0x00, 0x85, 0x01, 0x01)
 
@@ -38,7 +37,6 @@ class CommandDecoder(var ndefFile: NDEFFile) {
         }
 
     }
-
 
     fun decodeRead(offset: Int, le: Int): IntArray {
         Log.d(javaClass.name, "read binary")
@@ -89,11 +87,8 @@ class CommandDecoder(var ndefFile: NDEFFile) {
         } else {
             return NFCStatus.INVALID_P1P2_SELECT.data
         }
-
         return NFCStatus.OK.data
-
     }
-
 
     private fun getPaddedNDEF(): IntArray {
         Log.d(javaClass.name, "getPaddedNDEF")

@@ -1,6 +1,7 @@
 package com.example.testnfc.ndef
 
 import android.content.Context
+import android.nfc.NdefMessage
 import com.example.testnfc.toByteArray
 import com.example.testnfc.toIntArray
 
