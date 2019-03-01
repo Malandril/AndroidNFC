@@ -90,13 +90,16 @@ class CommandDecoder(var ndefFile: NDEFFile) {
         return NFCStatus.OK.data
     }
 
+    /**
+     * Gets the ndef bytes filled with zeroes to have the correct size
+     */
     private fun getNDEFFileFilled(): IntArray {
         Log.d(javaClass.name, "getNDEFFileFilled")
         val minLength = ccFile.VMaxNdefSize.convertToInt16()
         val ndefFileBytes = ndefFile.convertToArray()
         val ndefFileSize = ndefFileBytes.size
         return when {
-            ndefFileSize < minLength -> ndefFileBytes + IntArray((minLength - ndefFileSize))
+            ndefFileSize < minLength -> ndefFileBytes + IntArray(minLength - ndefFileSize)
             else -> ndefFileBytes
         }
     }

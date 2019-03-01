@@ -19,7 +19,7 @@ class NDEFFile(val context: Context) {
     fun write(ndefFile: IntArray) {
         context.openFileOutput("storage", Context.MODE_PRIVATE).use {
             it.write(ndefFile.toByteArray())
-            sendMessage(ndefFile.sliceArray(2 until ndefFile.size).toByteArray())
+            sendMessage(ndefFile.toByteArray())
         }
     }
 
@@ -27,6 +27,7 @@ class NDEFFile(val context: Context) {
         Log.d(javaClass.name, "Broadcasting message")
         val intent = Intent("update-text")
         intent.putExtra("ndef", bytes)
+
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
     }
 

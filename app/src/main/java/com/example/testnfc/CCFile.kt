@@ -8,7 +8,7 @@ class CCFile {
     var T = intArrayOf(0x04)
     var L = intArrayOf(0x06)
     var VFileIdentifier = intArrayOf(0xE1, 0x04)
-    var VMaxNdefSize = intArrayOf(0x01, 0x32)
+    var VMaxNdefSize = intArrayOf(0x02, 0x32)
     var VSecurity = intArrayOf(0x00, 0x00)
 
 

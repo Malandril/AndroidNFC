@@ -2,4 +2,5 @@
     <string name="app_name">TestNFC</string>
     <string name="servicedesc">My description</string>
     <string name="aiddescription">aid description</string>
+    <string name="error_ndef">Could not read ndef</string>
 </resources>
